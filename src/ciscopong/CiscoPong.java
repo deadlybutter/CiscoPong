@@ -25,8 +25,8 @@ public class CiscoPong {
     private State currentState;
     
     private CiscoPong() {
-        this.window = new GameWindow(this);
         this.input = new KeyboardInput();
+        this.window = new GameWindow(this, input);
         this.currentState = new MenuState();
         this.thread = new GameThread(this);
     }

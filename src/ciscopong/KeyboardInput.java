@@ -25,8 +25,8 @@ public class KeyboardInput implements KeyListener {
     public void keyPressed(KeyEvent e) {
         final int keyCode = e.getKeyCode();
         if(keyCode >= 0 && keyCode < 256){
-            keysUp[keyCode] = true;
-            keysDown[keyCode] = false;
+            keysUp[keyCode] = false;
+            keysDown[keyCode] = true;
             keyPressed = true;
             keyReleased = false;
         }

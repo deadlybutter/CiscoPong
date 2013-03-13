@@ -6,6 +6,7 @@ package ciscopong;
 
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
+import java.awt.event.KeyListener;
 import java.awt.geom.Dimension2D;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
@@ -21,16 +22,17 @@ public class GameWindow {
     private final CiscoPong game;
     private final JFrame window;
 
-    public GameWindow(CiscoPong game) {
+    public GameWindow(CiscoPong game, KeyListener listener) {
         this.game = game;
         this.window = new JFrame(WINDOW_TITLE);
         this.window.setResizable(false);
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.window.setSize(1080, 720);
+        this.window.setSize(640, 480);
         this.window.setVisible(true);
         
         this.window.requestFocus();
         this.window.createBufferStrategy(2);
+        this.window.addKeyListener(listener);
     }
 
     public Dimension2D getWindowDimension(){
