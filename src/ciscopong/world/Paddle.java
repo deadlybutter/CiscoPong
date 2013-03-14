@@ -20,5 +20,9 @@ public interface Paddle {
     
     Vector2 getLocation();
     Rectangle2D getCollisionBox();
+    int getLives();
+    void setLives(int numbers);
+    int getScore();
+    void setScore(int score);
     
 }

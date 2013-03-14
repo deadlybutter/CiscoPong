@@ -27,7 +27,7 @@ public class GameWindow {
         this.window = new JFrame(WINDOW_TITLE);
         this.window.setResizable(false);
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.window.setSize(640, 480);
+        this.window.setSize(960, 480);
         this.window.setVisible(true);
         
         this.window.requestFocus();

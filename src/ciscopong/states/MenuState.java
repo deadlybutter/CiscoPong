@@ -37,6 +37,7 @@ public class MenuState implements State {
         g.fillRect(0, 0, (int)window.getWidth(), (int)window.getHeight());
         g.setColor(Color.white);
         g.drawString("Play pong! By Joe Kent", (int)window.getWidth() / 2, (int)window.getHeight() / 2);
+        g.drawString("Press space to begin with two players, or press enter to verse a computer", (int)window.getWidth() / 2, (int)(window.getHeight() / 2) + 10);
     }
     
 }

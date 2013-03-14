@@ -19,7 +19,7 @@ import java.awt.geom.Rectangle2D;
  */
 public class PlayerPaddle implements Paddle {
     
-    public static final int HEIGHT = 64;
+    public static final int HEIGHT = 84;
     public static final int WIDTH = 8;
     
     private final boolean leftPlayer;
@@ -31,6 +31,9 @@ public class PlayerPaddle implements Paddle {
     
     private Vector2 location;
     private Rectangle2D collision;
+    
+    private int life = 5;
+    private int score = 0;
 
     public PlayerPaddle(Vector2 location, Rectangle2D collision, boolean leftPlayer) {
         this.location = location;
@@ -57,7 +60,7 @@ public class PlayerPaddle implements Paddle {
             return;
         }
         
-        if(input.isKeyDown(KeyEvent.VK_W)){
+        if(input.isKeyDown(UP_KEY)){
             Vector2 newLocation = location.clone();
             newLocation.subtract(moveSpeedDown);
             
@@ -69,7 +72,7 @@ public class PlayerPaddle implements Paddle {
             collision = new Rectangle2D.Double(location.x, location.y, WIDTH, HEIGHT);
         }
         
-        if(input.isKeyDown(KeyEvent.VK_S)){
+        if(input.isKeyDown(DOWN_KEY)){
             Vector2 newLocation = location.clone();
             newLocation.subtract(moveSpeedUp);
             
@@ -86,8 +89,49 @@ public class PlayerPaddle implements Paddle {
     public void render(Graphics2D g) {
         g.setColor(Color.white);
         g.fill(collision);
+        renderPaddleLives(g);
+        renderScore(g);
     }
+    
+    private void renderPaddleLives(Graphics2D g){
+        Dimension2D windowDimension2D = CiscoPong.getInstance().getWindow().getWindowDimension();
+        int guiOffset = (int)(windowDimension2D.getWidth() * .05);
+        g.setColor(Color.red);
+        if(location.x < windowDimension2D.getWidth() /2){
+            drawLife(g, guiOffset, (int)windowDimension2D.getHeight() - guiOffset, getLives());
+        }
+        else{
+            drawLife(g, (int)windowDimension2D.getWidth() - guiOffset * 2, (int)windowDimension2D.getHeight() - guiOffset, getLives());
+        }
+    }
+    
+    private void drawLife(Graphics2D g, int startingX, int startingY, int amount){
+        int increment = 16;
+        int diamater = 16;
+        int x = startingX;
+        int y = startingY;
+        g.setColor(Color.red);
+        for(int index = 0; index < amount; index++){
+            g.fillOval(x, y, diamater, diamater);
+            x+= increment;
+        }
+    }    
 
+    private void renderScore(Graphics2D g){
+        Dimension2D windowDimension2D = CiscoPong.getInstance().getWindow().getWindowDimension();
+        int guiOffset = (int)(windowDimension2D.getWidth() * .05);
+        int x;
+        int y = guiOffset;
+        if(location.x < (int)windowDimension2D.getWidth() / 2){
+            x = guiOffset;
+        }
+        else{
+            x = (int)windowDimension2D.getWidth() - (guiOffset * 2);
+        }
+        g.setColor(Color.YELLOW);
+        g.drawString("Score: " + score, x, y);
+    }
+    
     @Override
     public Vector2 getLocation() {
         return location;
@@ -98,6 +142,24 @@ public class PlayerPaddle implements Paddle {
         return collision;
     }
     
+    @Override
+    public int getLives(){
+        return life;
+    }
     
+    @Override
+    public void setLives(int number){
+        this.life = number;
+    }
+
+    @Override
+    public int getScore() {
+        return score;
+    }
+
+    @Override
+    public void setScore(int score) {
+        this.score = score;
+    }
     
 }
